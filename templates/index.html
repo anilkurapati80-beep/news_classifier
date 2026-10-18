@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>News Category Classifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card">
+    <p class="eyebrow">MACHINE LEARNING PRACTICAL</p>
+    <h1>News Category Classifier</h1>
+    <p class="intro">Paste a headline or article to predict its category.</p>
+    <form method="post" action="{{ url_for('prediction_page') }}">
+      <label for="text">News text</label>
+      <textarea id="text" name="text" maxlength="20000" required placeholder="Type or paste news here…">{{ text }}</textarea>
+      <button type="submit">Predict category</button>
+    </form>
+    {% if error %}<div class="message error" role="alert">{{ error }}</div>{% endif %}
+    {% if prediction %}
+      <section class="message result" aria-live="polite">
+        <h2>Predicted category: {{ prediction.category }}</h2>
+        {% if prediction.probabilities %}<p>Estimated class probabilities:</p>
+          <ul>{% for label, probability in prediction.probabilities.items() %}<li>{{ label }}: {{ '%.1f'|format(probability * 100) }}%</li>{% endfor %}</ul>
+          <small>These scores are estimates, not guaranteed certainty.</small>
+        {% endif %}
+      </section>
+    {% endif %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,13 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+.env
+*.pem
+.idea/
+.vscode/
+data/
+results/
+model.pkl
